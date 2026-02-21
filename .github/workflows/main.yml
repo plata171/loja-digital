@@ -10,29 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build web
-        run: |
-          mkdir dist
-          echo "<h1>Loja Digital</h1>" > dist/index.html
-
       - name: Install Capacitor Android
         run: npm install @capacitor/android
 
-      - name: Add Android
-        run: npx cap add android
-
-      - name: Sync
-        run: npx cap sync
+      - name: Sync Capacitor
+        run: npx cap sync android
 
       - name: Build APK
         run: |
@@ -43,5 +36,4 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name
